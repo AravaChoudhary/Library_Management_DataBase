@@ -1,0 +1,349 @@
+create database if not exists final;
+use final;
+
+CREATE TABLE `book` (
+    `book_id` int  NOT NULL ,
+    `title` varchar(50)  NOT NULL ,
+    `author_id` int  NOT NULL ,
+    `genre_id` int  NOT NULL ,
+    `publisher_id` int  NOT NULL ,
+    `description` varchar(50)  NOT NULL ,
+    `quantity` int  NOT NULL ,
+    `location` varchar(50)  NOT NULL ,
+    `status` varchar(50)  NOT NULL ,
+    PRIMARY KEY (
+        `book_id`
+    ),
+    INDEX `idx_author_id` (`author_id`),
+    INDEX `idx_publisher_id` (`publisher_id`),
+    INDEX `idx_genre_id` (`genre_id`)
+);
+
+CREATE TABLE `users` (
+    `user_id` int  NOT NULL ,
+    `name` varchar(20)  NOT NULL ,
+    `address` varchar(60)  NOT NULL ,
+    `email` varchar(50)  NOT NULL ,
+    `phone_no` BIGINT  NOT NULL ,
+    `user_type` varchar(50)  NOT NULL ,
+    `status` varchar(50)  NOT NULL ,
+    PRIMARY KEY (
+        `user_id`
+    )
+);
+
+CREATE TABLE `author` (
+    `author_id` int  NOT NULL ,
+    `author_name` varchar(50)  NOT NULL ,
+    `author_bio` varchar(500)  NOT NULL ,
+    PRIMARY KEY (
+        `author_id`
+    )
+);
+
+CREATE TABLE `borrowings` (
+    `transaction_id` int  NOT NULL ,
+    `user_id` int  NOT NULL ,
+    `book_id` int  NOT NULL ,
+    `date_issue` varchar(50)  NOT NULL ,
+    `date_return` varchar(50)  NOT NULL ,
+    `transaction_status` varchar(50)  NOT NULL ,
+    `fine` int  NOT NULL ,
+    PRIMARY KEY (
+        `transaction_id`
+    )
+);
+
+CREATE TABLE `publisher` (
+    `publisher_id` int  NOT NULL ,
+    `publisher_name` varchar(50)  NOT NULL ,
+    `contact_no` BIGINT  NOT NULL ,
+    `publisher_address` varchar(50)  NOT NULL ,
+    PRIMARY KEY (
+        `publisher_id`
+    )
+);
+
+CREATE TABLE `genres` (
+    `genre_id` int  NOT NULL ,
+    `genre_name` varchar(50)  NOT NULL ,
+    PRIMARY KEY (
+        `genre_id`
+    )
+);
+
+CREATE TABLE `staff` (
+    `Staff_id` int  NOT NULL ,
+    `name` varchar(50)  NOT NULL ,
+    `role` varchar(50)  NOT NULL ,
+    `username` varchar(50)  NOT NULL ,
+    `password` int  NOT NULL ,
+    PRIMARY KEY (
+        `Staff_id`
+    ),
+    CONSTRAINT `uc_staff_password` UNIQUE (
+        `password`
+    )
+);
+
+CREATE TABLE `reservation` (
+    `reservation_id` int  NOT NULL ,
+    `user_id` int  NOT NULL ,
+    `book_id` int  NOT NULL ,
+    `date_reserved` varchar(50)  NOT NULL ,
+    `status` varchar(50)  NOT NULL ,
+    PRIMARY KEY (
+        `reservation_id`
+    )
+);
+
+CREATE TABLE `ratings` (
+    `review_id` int  NOT NULL ,
+    `user_id` int  NOT NULL ,
+    `book_id` int  NOT NULL ,
+    `rating` int  NOT NULL ,
+    `review_text` varchar(50)  NOT NULL ,
+    `date` varchar(50)  NOT NULL ,
+    PRIMARY KEY (
+        `review_id`
+    )
+);
+
+CREATE TABLE `fine` (
+    `fine_id` int  NOT NULL ,
+    `user_id` int  NOT NULL ,
+    `amount` int  NOT NULL ,
+    `reason` varchar(50)  NOT NULL ,
+    `date_issued` varchar(50)  NOT NULL ,
+    `status` varchar(20)  NOT NULL ,
+    PRIMARY KEY (
+        `fine_id`
+    )
+);
+
+INSERT INTO book (book_id, title, author_id, genre_id, publisher_id, description, quantity, location, status) VALUES
+(1, 'The Shadow of the Wind', 1, 3, 1, 'A captivating mystery', 5, 'Shelf A', 'Available'),
+(2, '1984', 2, 2, 2, 'A dystopian classic', 3, 'Shelf B', 'Available'),
+(3, 'Harry Potter and the Sorcerer''s Stone', 3, 1, 3, 'Magic and adventure', 7, 'Shelf C', 'Available'),
+(4, 'The Hunger Games', 4, 2, 4, 'A thrilling dystopian novel', 6, 'Shelf D', 'Available'),
+(5, 'Jurassic Park', 5, 4, 5, 'Dinosaurs come back to life', 4, 'Shelf E', 'Available'),
+(6, 'The Da Vinci Code', 6, 5, 6, 'A mysterious journey', 8, 'Shelf F', 'Available'),
+(7, 'Dracula', 7, 6, 7, 'A classic horror tale', 5, 'Shelf G', 'Available'),
+(8, 'Pride and Prejudice', 8, 7, 8, 'A timeless romance', 9, 'Shelf H', 'Available'),
+(9, 'The Shining', 9, 6, 9, 'A terrifying psychological thriller', 4, 'Shelf I', 'Available'),
+(10, 'The Hitchhiker''s Guide to the Galaxy', 10, 4, 10, 'A humorous space adventure', 3, 'Shelf J', 'Available'),
+(11, 'Gone Girl', 11, 8, 11, 'A gripping psychological thriller', 6, 'Shelf K', 'Available'),
+(12, 'The Girl on the Train', 12, 8, 12, 'A suspenseful mystery', 5, 'Shelf L', 'Available'),
+(13, 'To Kill a Mockingbird', 13, 3, 13, 'A classic tale of justice', 7, 'Shelf M', 'Available'),
+(14, 'Twilight', 14, 7, 14, 'A supernatural romance', 5, 'Shelf N', 'Available'),
+(15, 'The Hobbit', 15, 1, 15, 'An epic fantasy adventure', 8, 'Shelf O', 'Available'),
+(16, 'The Catcher in the Rye', 16, 3, 16, 'A coming-of-age novel', 6, 'Shelf P', 'Available'),
+(17, 'The Martian', 17, 4, 17, 'Survival on Mars', 4, 'Shelf Q', 'Available'),
+(18, 'The Girl with the Dragon Tattoo', 18, 5, 18, 'A gripping thriller', 5, 'Shelf R', 'Available'),
+(19, 'The Silence of the Lambs', 19, 6, 19, 'A chilling psychological thriller', 4, 'Shelf S', 'Available'),
+(20, 'The Alchemist', 20, 3, 20, 'A mystical journey', 7, 'Shelf T', 'Available');
+
+
+INSERT INTO users (user_id, name, address, email, phone_no, user_type, status) VALUES
+(1, 'John Doe', '123 Main St', 'john.doe@example.com', 1234567890, 'Student', 'Active'),
+(2, 'Jane Smith', '456 Elm St', 'jane.smith@example.com', 9876543210, 'Faculty', 'Active'),
+(3, 'Michael Johnson', '789 Oak St', 'michael.j@example.com', 5551234567, 'Student', 'Active'),
+(4, 'Emily Johnson', '101 Pine St', 'emily.j@example.com', 5559876543, 'Student', 'Active'),
+(5, 'Michael Williams', '202 Oak St', 'michael.w@example.com', 5551239876, 'Student', 'Active'),
+(6, 'Sarah Brown', '303 Elm St', 'sarah.b@example.com', 5557891234, 'Faculty', 'Active'),
+(7, 'David Davis', '404 Maple St', 'david.d@example.com', 5554567890, 'Student', 'Active'),
+(8, 'Jessica Miller', '505 Cedar St', 'jessica.m@example.com', 5556543210, 'Student', 'Active'),
+(9, 'Robert Wilson', '606 Walnut St', 'robert.w@example.com', 5559876543, 'Faculty', 'Active'),
+(10, 'Elizabeth Taylor', '707 Birch St', 'elizabeth.t@example.com', 5551239876, 'Student', 'Active');
+
+INSERT INTO author (author_id, author_name, author_bio) VALUES
+(1, 'J.K. Rowling', 'British author'),
+(2, 'George Orwell', 'English novelist'),
+(3, 'Harper Lee', 'American novelist'),
+(4, 'J.R.R. Tolkien', 'English writer, poet, philologist, and university professor'),
+(5, 'F. Scott Fitzgerald', 'American novelist, essayist, screenwriter, and short-story writer'),
+(6, 'Jane Austen', 'English novelist known primarily for her six major novels, which interpret, critique and comment upon the British landed gentry at the end of the 18th century'),
+(7, 'J.D. Salinger', 'American writer known for his widely read novel, "The Catcher in the Rye"'),
+(8, 'Aldous Huxley', 'English writer and philosopher'),
+(9, 'William Golding', 'British novelist, playwright, and poet'),
+(10, 'Suzanne Collins', 'American television writer and author'),
+(11, 'Dan Brown', 'American author'),
+(12, 'Stieg Larsson', 'Swedish journalist and writer'),
+(13, 'Margaret Mitchell', 'American novelist and journalist'),
+(14, 'Cormac McCarthy', 'American novelist, playwright, and screenwriter'),
+(15, 'Paulo Coelho', 'Brazilian lyricist and novelist'),
+(16, 'Khaled Hosseini', 'Afghan-American novelist'),
+(17, 'Stephen King', 'American author of horror, supernatural fiction, suspense, crime, science-fiction, and fantasy novels'),
+(18, 'Oscar Wilde', 'Irish poet and playwright');
+
+INSERT INTO borrowings (transaction_id, user_id, book_id, date_issue, date_return, transaction_status, fine) VALUES
+(1, 1, 1, '2024-05-01', '2024-05-15', 'Issued', 0),
+(2, 2, 2, '2024-05-02', '2024-05-16', 'Issued', 0),
+(3, 3, 3, '2024-05-03', '2024-05-17', 'Issued', 0),
+(4, 1, 4, '2024-05-04', '2024-05-18', 'Issued', 0),
+(5, 4, 5, '2024-05-05', '2024-05-19', 'Issued', 0),
+(6, 5, 6, '2024-05-06', '2024-05-20', 'Issued', 0),
+(7, 6, 7, '2024-05-07', '2024-05-21', 'Issued', 0),
+(8, 7, 8, '2024-05-08', '2024-05-22', 'Issued', 0),
+(9, 8, 9, '2024-05-09', '2024-05-23', 'Issued', 0),
+(10, 9, 10, '2024-05-10', '2024-05-24', 'Issued', 0),
+(11, 10, 11, '2024-05-11', '2024-05-25', 'Issued', 0),
+(12, 1, 12, '2024-05-12', '2024-05-26', 'Issued', 0),
+(13, 2, 13, '2024-05-13', '2024-05-27', 'Issued', 0),
+(14, 3, 14, '2024-05-14', '2024-05-28', 'Issued', 0),
+(15, 4, 15, '2024-05-15', '2024-05-29', 'Issued', 0),
+(16, 5, 16, '2024-05-16', '2024-05-30', 'Issued', 0),
+(17, 6, 17, '2024-05-17', '2024-05-31', 'Issued', 0),
+(18, 7, 18, '2024-05-18', '2024-06-01', 'Issued', 0),
+(19, 8, 19, '2024-05-19', '2024-06-02', 'Issued', 0),
+(20, 9, 20, '2024-05-20', '2024-06-03', 'Issued', 0);
+
+INSERT INTO publisher (publisher_id, publisher_name, contact_no, publisher_address) VALUES
+(1, 'Bloomsbury Publishing', 1234567890, 'London, UK'),
+(2, 'Secker & Warburg', 9876543210, 'London, UK'),
+(3, 'J. B. Lippincott & Co.', 5551234567, 'Philadelphia, US'),
+(4, 'Allen & Unwin', 1112223333, 'London, UK'),
+(5, 'Charles Scribner''s Sons', 1112223333, 'New York, US'),
+(6, 'Thomas Egerton', 4445556666, 'London, UK'),
+(7, 'Little, Brown and Company', 7778889999, 'Boston, US'),
+(8, 'Chatto & Windus', 1212121212, 'London, UK'),
+(9, 'Faber and Faber', 1313131313, 'London, UK'),
+(10, 'Scholastic Corporation', 1414141414, 'New York, US'),
+(11, 'Doubleday', 1515151515, 'New York, US'),
+(12, 'Norstedts Förlag', 1616161616, 'Stockholm, Sweden'),
+(13, 'Macmillan Publishers', 1717171717, 'London, UK'),
+(14, 'Vintage Books', 1818181818, 'New York, US'),
+(15, 'HarperCollins', 1919191919, 'New York, US'),
+(16, 'Riverhead Books', 2020202020, 'New York, US'),
+(17, 'Doubleday', 2121212121, 'New York, US'),
+(18, 'Ward, Lock & Co', 2222222222, 'London, UK');
+
+INSERT INTO genres (genre_id, genre_name) VALUES
+(1, 'Fantasy'),
+(2, 'Dystopian'),
+(3, 'Fiction'),
+(4, 'Science Fiction'),
+(5, 'Mystery'),
+(6, 'Horror'),
+(7, 'Romance'),
+(8, 'Thriller');
+
+INSERT INTO staff (Staff_id, name, role, username, password) VALUES
+(1, 'Admin', 'Administrator', 'admin', 123456),
+(2, 'Librarian', 'Librarian', 'librarian', 654321),
+(3, 'Rachel Green', 'Library Assistant', 'rachel', 123789),
+(4, 'Ross Geller', 'Library Assistant', 'ross', 456789),
+(5, 'Monica Geller', 'Library Assistant', 'monica', 789123),
+(6, 'Chandler Bing', 'Library Assistant', 'chandler', 987654),
+(7, 'Phoebe Buffay', 'Library Assistant', 'phoebe', 654322),
+(8, 'Joey Tribbiani', 'Library Assistant', 'joey', 147258),
+(9, 'Janice Hosenstein', 'Library Assistant', 'janice', 369852),
+(10, 'Gunther Centralperk', 'Library Assistant', 'gunther', 258369),
+(11, 'Richard Burke', 'Library Assistant', 'richard', 159357),
+(12, 'Carol Willick', 'Library Assistant', 'carol', 753951),
+(13, 'Susan Bunch', 'Library Assistant', 'susan', 369147),
+(14, 'Judy Geller', 'Library Assistant', 'judy', 147963),
+(15, 'Jack Geller', 'Library Assistant', 'jack', 963741),
+(16, 'Amy Green', 'Library Assistant', 'amy', 852963),
+(17, 'Mike Hannigan', 'Library Assistant', 'mike', 741852),
+(18, 'Emily Waltham', 'Library Assistant', 'emily', 654123),
+(19, 'Estelle Leonard', 'Library Assistant', 'estelle', 321654),
+(20, 'Ursula Buffay', 'Library Assistant', 'ursula', 789654);
+
+INSERT INTO reservation (reservation_id, user_id, book_id, date_reserved, status) VALUES
+(1, 1, 1, '2024-05-10', 'Pending'),
+(2, 2, 2, '2024-05-11', 'Pending'),
+(3, 3, 3, '2024-05-12', 'Pending'),
+(4, 1, 1, '2024-05-10', 'Pending'),
+(5, 2, 2, '2024-05-11', 'Pending'),
+(6, 3, 3, '2024-05-12', 'Pending'),
+(7, 4, 4, '2024-05-13', 'Pending'),
+(8, 5, 5, '2024-05-14', 'Pending'),
+(9, 6, 6, '2024-05-15', 'Pending'),
+(10, 7, 7, '2024-05-16', 'Pending'),
+(11, 8, 8, '2024-05-17', 'Pending'),
+(12, 9, 9, '2024-05-18', 'Pending'),
+(13, 10, 10, '2024-05-19', 'Pending'),
+(14, 1, 11, '2024-05-20', 'Pending'),
+(15, 2, 12, '2024-05-21', 'Pending'),
+(16, 3, 13, '2024-05-22', 'Pending'),
+(17, 4, 14, '2024-05-23', 'Pending'),
+(18, 5, 15, '2024-05-24', 'Pending'),
+(19, 6, 16, '2024-05-25', 'Pending'),
+(20, 7, 17, '2024-05-26', 'Pending');
+
+INSERT INTO ratings (review_id, user_id, book_id, rating, review_text, date) VALUES
+(1, 1, 1, 5, 'Excellent book!', '2024-05-01'),
+(2, 2, 2, 4, 'Good read', '2024-05-02'),
+(3, 3, 3, 5, 'One of the best!', '2024-05-03'),
+(4, 1, 1, 4, 'Great book!', '2024-05-05'),
+(5, 2, 2, 3, 'Interesting read', '2024-05-06'),
+(6, 3, 3, 5, 'Loved it!', '2024-05-07'),
+(7, 4, 4, 4, 'Very enjoyable', '2024-05-08'),
+(8, 5, 5, 5, 'Classic!', '2024-05-09'),
+(9, 6, 6, 4, 'Well-written', '2024-05-10'),
+(10, 7, 7, 4, 'Captivating', '2024-05-11'),
+(11, 8, 8, 3, 'Interesting concept', '2024-05-12'),
+(12, 9, 9, 5, 'A must-read!', '2024-05-13'),
+(13, 10, 10, 4, 'Thought-provoking', '2024-05-14'),
+(14, 1, 11, 4, 'Compelling', '2024-05-15'),
+(15, 2, 12, 5, 'Page-turner', '2024-05-16'),
+(16, 3, 13, 4, 'Thrilling', '2024-05-17'),
+(17, 4, 14, 4, 'Engrossing', '2024-05-18'),
+(18, 5, 15, 5, 'Emotional journey', '2024-05-19'),
+(19, 6, 16, 4, 'Well-crafted', '2024-05-20'),
+(20, 7, 17, 3, 'Scary!', '2024-05-21');
+
+INSERT INTO fine (fine_id, user_id, amount, reason, date_issued, status) VALUES
+(1, 1, 10, 'Late return', '2024-05-15', 'Pending'),
+(2, 2, 5, 'Damaged book', '2024-05-16', 'Pending'),
+(3, 3, 15, 'Late return', '2024-05-18', 'Pending'),
+(4, 4, 20, 'Lost book', '2024-05-19', 'Pending'),
+(5, 5, 10, 'Damaged book', '2024-05-20', 'Pending'),
+(6, 6, 5, 'Late return', '2024-05-21', 'Pending'),
+(7, 7, 15, 'Lost book', '2024-05-22', 'Pending'),
+(8, 8, 10, 'Damaged book', '2024-05-23', 'Pending'),
+(9, 9, 5, 'Late return', '2024-05-24', 'Pending'),
+(10, 10, 15, 'Lost book', '2024-05-25', 'Pending'),
+(11, 1, 10, 'Damaged book', '2024-05-26', 'Pending'),
+(12, 2, 5, 'Late return', '2024-05-27', 'Pending'),
+(13, 3, 15, 'Lost book', '2024-05-28', 'Pending'),
+(14, 4, 10, 'Damaged book', '2024-05-29', 'Pending'),
+(15, 5, 5, 'Late return', '2024-05-30', 'Pending'),
+(16, 6, 15, 'Lost book', '2024-05-31', 'Pending'),
+(17, 7, 10, 'Damaged book', '2024-06-01', 'Pending'),
+(18, 8, 5, 'Late return', '2024-06-02', 'Pending'),
+(19, 9, 15, 'Lost book', '2024-06-03', 'Pending'),
+(20, 10, 10, 'Damaged book', '2024-06-04', 'Pending');
+
+
+
+ALTER TABLE `author` ADD CONSTRAINT `fk_author_author_id` FOREIGN KEY(`author_id`)
+REFERENCES `book` (`author_id`); 
+
+ALTER TABLE `borrowings` ADD CONSTRAINT `fk_borrowings_user_id` FOREIGN KEY(`user_id`)
+REFERENCES `users` (`user_id`);
+
+ALTER TABLE `borrowings` ADD CONSTRAINT `fk_borrowings_book_id` FOREIGN KEY(`book_id`)
+REFERENCES `book` (`book_id`);
+
+ALTER TABLE `publisher` ADD CONSTRAINT `fk_publisher_publisher_id` FOREIGN KEY(`publisher_id`)
+REFERENCES `book` (`publisher_id`);
+
+ALTER TABLE `genres` ADD CONSTRAINT `fk_genres_genre_id` FOREIGN KEY(`genre_id`)
+REFERENCES `book` (`genre_id`);
+
+ALTER TABLE `reservation` ADD CONSTRAINT `fk_reservation_user_id` FOREIGN KEY(`user_id`)
+REFERENCES `users` (`user_id`);
+
+ALTER TABLE `reservation` ADD CONSTRAINT `fk_reservation_book_id` FOREIGN KEY(`book_id`)
+REFERENCES `borrowings` (`book_id`);
+
+ALTER TABLE `ratings` ADD CONSTRAINT `fk_ratings_user_id` FOREIGN KEY(`user_id`)
+REFERENCES `users` (`user_id`);
+
+ALTER TABLE `ratings` ADD CONSTRAINT `fk_ratings_book_id` FOREIGN KEY(`book_id`)
+REFERENCES `book` (`book_id`);
+
+ALTER TABLE `fine` ADD CONSTRAINT `fk_fine_user_id` FOREIGN KEY(`user_id`)
+REFERENCES `users` (`user_id`);
